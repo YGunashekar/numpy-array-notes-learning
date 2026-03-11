@@ -2,7 +2,7 @@
 [![Watch the video](https://img.youtube.com/vi/1qz7qUM6yUI/0.jpg)](https://www.youtube.com/watch?v=1qz7qUM6yUI)
 
 # notes typed
-Python + numpy basics
+/* Python + numpy basics
 Image arrays
 CNN basics
 TensorFlow/keras workflow
@@ -190,7 +190,7 @@ np.random.rand(10) this returns random floats from 0 to 1
 np.random.rand([2,3]) this returns random floats from 0 to 1 by two rows and three columns 
 np.random.randn() this  returns random floats from 0 to 1 in standard normal distribution 
 np.random.randint(10,100) returns random interger from 1to 10 as start,stop,numer ofvalues ,output came as 99
-np.random.randint(10,100,6) returns random interger from 1to 10 as start,stop,numer ofvalues ,output came as random integers from 10 to 100 by two rows and three columns .
+np.random.randint(10,100,6) returns random interger from 1to 10 as start,stop,numer ofvalues ,output came as random integers from 10 to 100 by two rows and three columns .*/
 
 
 
