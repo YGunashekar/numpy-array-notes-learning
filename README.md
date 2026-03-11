@@ -179,7 +179,7 @@ lets arr=np.zeros([2,3])
 this returns array([0.,0.,0.],
                   [0.,0.,0.])``` /* you can identify the view of row and columns here thats right vertical are columns are horizontal*/
 here in np.zeros([2,3]) #2 is rows and 3 is column
-||
+
 where np.zeros([2,3,5,6,8]) returns a 5 dimensional array 
 in this above code represents 2 blocks in each one 3 subblocks in each one 5 matrixes in each one 6 rows and 8 columns.
 ```
