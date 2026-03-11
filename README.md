@@ -2,196 +2,258 @@
 [![Watch the video](https://img.youtube.com/vi/1qz7qUM6yUI/0.jpg)](https://www.youtube.com/watch?v=1qz7qUM6yUI)
 
 # notes typed
-/* Python + numpy basics
+Python + NumPy Basics
+Topics Covered
+
+Python + NumPy basics
+
 Image arrays
+
 CNN basics
-TensorFlow/keras workflow
+
+TensorFlow / Keras workflow
+
 Dataset handling
+
 Model architecture
 
+Currently learning NumPy basics.
 
-started numpy
+List vs NumPy
 
-list vs numpy - 
+NumPy uses less memory and is much faster than Python lists.
 
-numpy stores less memory than list . for example 
+Example
+a = [1,2,3,4] * 10000
 
-a=[1,2,3,4]*10000
-this repeats thousand times
-a=[1,2,3,4,1,2,3,4 … upto 10000times]
-if we multiply with 2
-that's only possible with looping each and every element with looping it multiplying to 2 .
+This repeats the list:
 
-lets get into coding 
+[1,2,3,4,1,2,3,4 ... repeated 10000 times]
 
-lets import libraries numpy and time
+If we want to multiply each element by 2, in a list we must use a loop.
 
+List Performance Example
 import numpy as np
 import time
 
-now lets multiply with 2 and calculate time parllely
+a = [1,2,3,4,5,6,7,8,9,10] * 1000000
 
-a=[1,2,3,4,5,6,7,8,9,10]*1000000
+start = time.time()
 
-start =time.time()
 for i in range(len(a)):
-     a[i]=a[i]*2
-print("\n time take for list ",time.time()-start)
+    a[i] = a[i] * 2
 
-output:
-        time take for list 1.1340267658233643
+print("Time taken for list:", time.time() - start)
+Output
+Time taken for list: 1.1340267658233643
+NumPy Performance Example
+import numpy as np
+import time
 
-now lets multiply same with using numpy
+a = [1,2,3,4,5,6,7,8,9,10] * 1000000
+b = np.array(a)
 
-a=[1,2,3,4,5,6,7,8,9,10]*1000000
+start = time.time()
 
-b=np.array(a)
+new_b = b * 2
 
-start =time.time()
-new_b=b*2
-print("\n time take for list ",time.time()-start)
+print("Time taken for NumPy:", time.time() - start)
+Output
+Time taken for NumPy: 0.03792834281921387
+Why NumPy is Faster
 
-output:
-        time take for list 0.03792834281921387
+NumPy is implemented in C
 
+Uses vectorized operations
 
-the reason is why numpy faster than list is they use different languages each other . numpy uses c language where list uses python . the next thing is memory .numpy stores each element in the array only as a string where as list can store them as number , float , string , etc based on the value.
+Uses continuous memory storage
 
+Memory Comparison
+import numpy as np
+import sys
 
-lets take
+a = [1,2,3,4,5]
+arr = np.array(a)
 
-a=[1,2,3,4,5]
-arr=np.array(a)
-print("list size:",sys.getsizeof(a))
-print("array size:",arr.nbytes)
-
-output: list size:104
-        Array size:40
-
-see another example 
-
-a=[1,'a',"apple",2.1]
+print("List size:", sys.getsizeof(a))
+print("Array size:", arr.nbytes)
+Output
+List size: 104
+Array size: 40
+Data Types
+Python List
+a = [1, 'a', "apple", 2.1]
 print(type(a))
 
-output:<class 'list'>
-arr=np.array()
-output:
-array(['1','a','apple','2.1'],dtype='<U32')
+Output
 
-table =
+<class 'list'>
 
-feature -     speed ,  datatypes , memoryefficiency , Mathoperations , builtinfunctions
-python list -  slow, mixed allowed, less efficient , manual loop,limited
-numpy array -  fast(optimized in c), Samedatatype ,moreefficient ,direct(vectorized),manypowerfultools 
+Lists allow mixed datatypes.
 
+NumPy Array
+import numpy as np
 
-ok lets continue with an example
+a = [1,'a',"apple",2.1]
+arr = np.array(a)
+print(arr)
 
-import numpy as np # where np is alias
+Output
+
+array(['1','a','apple','2.1'], dtype='<U32')
+
+NumPy converts everything into one datatype.
+
+Comparison Table
+Feature	Python List	NumPy Array
+Speed	Slow	Fast (optimized in C)
+Data types	Mixed allowed	Same datatype
+Memory	Less efficient	More efficient
+Math operations	Manual loop	Direct vectorized
+Built-in functions	Limited	Many powerful tools
+Creating NumPy Arrays
+import numpy as np
+
 np.array([1,2,3])
-output:array([1,2,3])
 
-lets get to dimensions and shapes
+Output
 
-#dimensions
-32 => scalar => 0 dimension
-[1,2,3]=>1 dimension
-[ [1,2,3][4,5,6]]=> 2 dimension
-
-lets from this code 
-arr=np.array([1,2,3])
-arr
-output:array([1,2,3])
-arr.ndim 
-output:1 #dimension of array got 1
-
-arr=np.array(34)
+array([1,2,3])
+Dimensions
+Example	Meaning	Dimension
+32	Scalar	0D
+[1,2,3]	Vector	1D
+[[1,2,3],[4,5,6]]	Matrix	2D
+Example
+arr = np.array([1,2,3])
 arr.ndim
-output:0 #dimension of array got 0
 
-some other ways to initailze dimensions
-[]=>1 dimension
-[[],[]]=>2 dimension
-[[[[]]]]...=> the n number of brackets increase dimensions increase from 0 to n
+Output
 
-ok lets get into code
-arr=np.array([])
-arr
-output:1 #dimension came 1
+1
+Dimension Examples
+arr = np.array(34)
+arr.ndim
 
-arr=np.array([[]])
-arr
-output:2 #dimension came 2
+Output
 
-arr=np.array([[[]]])
-arr
-output:3 #dimension came 3
+0
 
-arr=np.array([[[[]]]])
-arr
-output:4 #dimension came 4
+Increasing brackets increases dimensions.
 
+[] → 1D
+[[]] → 2D
+[[[]]] → 3D
+[[[[]]]] → 4D
+Example
+arr = np.array([[[[]]]])
+arr.ndim
+
+Output
+
+4
+Shape
 arr.shape
-output:(1,1,1,0) # this shows and represents the four dimensional shape of an array
 
-imagine a three dimensional box in 3d space a 4 dimensional is little complex to that
+Output
 
-in list if we want to type the elements from 1to 10 .we type manually or use for loop . but in numpy we can give direct mathematical operations 
-like in list 
-for i in range(10):
-    l.append[i]
+(1,1,1,0)
+Creating Number Sequences
+arange()
+np.arange(1,10)
 
-in numpy we can directly np.arange(1,10) do this
-for example
-range = np.arange(1,10) #start and stop
-range 
-array([1,2,3,4,5,6,...9])
+Output
 
-range=np.arange(1,10,2) #start and stop and step up
-range
-output:array([1,3,5,7,9])
+array([1,2,3,4,5,6,7,8,9])
 
-arr=np.linspace(0,1,5) # start and stop and no. of values
-arr
-output:array([0.,0.25,0.5,0.75,1.])
+Step example:
 
-arr=np.logspace(1,3,3) /* this returns the number(n) values in 10^n as start and end and number of values*/
-arr
-output:array([10.,100.,1000.])
+np.arange(1,10,2)
 
-lets arr=np.zeros(5)
-this returns array([0.,0.,0.,0.,0.])
+Output
 
-lets arr=np.zeros([2,3])
-this returns array([0.,0.,0.],
-                  [0.,0.,0.]) /* you can identify the view of row and columns here thats right vertical are columns are horizontal*/
-here in np.zeros([2,3]) #2 is rows and 3 is column
-where np.zeros([2,3,5,6,8]) returns a 5 dimensional array 
-in this above code represents 2 blocks in each one 3 subblocks in each one 5 matrixes in each one 6 rows and 8 columns.
+array([1,3,5,7,9])
+linspace()
+np.linspace(0,1,5)
 
-np.ones([4,2],dtype='int')# you can also declare the datatype in it 
-returns array([[1.,1.],
-               [1.,1.],
-               [1.,1.],
-               [1.,1.]] 
-np.full([10,2]) # creates an array full of any value
-returns array([2,2,2,2,2,2,2,2,2,2])
+Output
 
+array([0.,0.25,0.5,0.75,1.])
+logspace()
+np.logspace(1,3,3)
 
-np.full([2,4],7) # creates an array full of any value
-returns array([7,7,7,7],
-              [7,7,7,7])
+Output
 
-np.empty # this iniatializes an uninitialized array
-np.empty([2,3]) this returns array([0.,0.,0.],
-                                   [0.,0.,0.]) # this is an empty list not zeros they are empty
+array([10.,100.,1000.])
+Arrays with Zeros
+np.zeros(5)
 
-np.random.rand(10) this returns random floats from 0 to 1
-np.random.rand([2,3]) this returns random floats from 0 to 1 by two rows and three columns 
-np.random.randn() this  returns random floats from 0 to 1 in standard normal distribution 
-np.random.randint(10,100) returns random interger from 1to 10 as start,stop,numer ofvalues ,output came as 99
-np.random.randint(10,100,6) returns random interger from 1to 10 as start,stop,numer ofvalues ,output came as random integers from 10 to 100 by two rows and three columns .*/
+Output
 
+array([0.,0.,0.,0.,0.])
+2D Zeros
+np.zeros([2,3])
+
+Output
+
+[[0. 0. 0.]
+ [0. 0. 0.]]
+
+Here:
+
+2 → rows
+
+3 → columns
+
+Higher Dimensions
+np.zeros([2,3,5,6,8])
+
+This creates a 5D array:
+
+2 blocks
+3 sub-blocks
+5 matrices
+6 rows
+8 columns
+Arrays with Ones
+np.ones([4,2], dtype='int')
+
+Output
+
+[[1 1]
+ [1 1]
+ [1 1]
+ [1 1]]
+Full Arrays
+np.full([2,4],7)
+
+Output
+
+[[7 7 7 7]
+ [7 7 7 7]]
+Empty Arrays
+np.empty([2,3])
+
+Creates an uninitialized array (values depend on memory).
+
+Random Arrays
+Random floats
+np.random.rand(10)
+
+Random numbers between 0 and 1.
+
+Random matrix
+np.random.rand(2,3)
+Normal distribution
+np.random.randn(5)
+Random integers
+np.random.randint(10,100)
+
+Single integer between 10 and 100.
+
+np.random.randint(10,100,6)
+
+6 random integers between 10 and 100.
 
 
 
